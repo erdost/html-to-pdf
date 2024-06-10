@@ -16,14 +16,13 @@ app.get('/health', (req, res) => {
   });
   
 
-app.post('/convert-html-to-pdf', upload.single('input-html-file'), async (req, res) => {
+app.post('/convert-html-to-pdf', upload.single('html-file'), async (req, res) => {
   if (!req.file) {
     return res.status(400).send('No file uploaded.');
   }
 
   const htmlContent = req.file.buffer.toString('utf8');
 
-  // Create a new page
   const page = await browser.newPage();
 
   await page.setContent(htmlContent, { waitUntil: 'domcontentloaded' });
